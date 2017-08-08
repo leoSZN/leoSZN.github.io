@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ilearn" Class="AceDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=ilearn.database.windows.net;Initial Catalog=ilearn;Persist Security Info=True;User ID=ilearn" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ilearnConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StudentIC" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Year" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="Semester" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="LoginID" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="FacultyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IntakeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProgramID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Student_AttList" Member="AttLists" ThisKey="ID" OtherKey="StuID" Type="AttList" />
+      <Association Name="Student_Absent" Member="Absents" ThisKey="ID" OtherKey="StuID" Type="Absent" />
+      <Association Name="Faculty_Student" Member="Faculty" ThisKey="FacultyID" OtherKey="ID" Type="Faculty" IsForeignKey="true" />
+      <Association Name="Intake_Student" Member="Intake" ThisKey="IntakeID" OtherKey="ID" Type="Intake" IsForeignKey="true" />
+      <Association Name="Login_Student" Member="Login" ThisKey="LoginID" OtherKey="LoginID" Type="Login" IsForeignKey="true" />
+      <Association Name="Program_Student" Member="Program" ThisKey="ProgramID" OtherKey="ID" Type="Program" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AttList" Member="AttLists">
+    <Type Name="AttList">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="IP" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Device" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StuID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AttID" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Association Name="Student_AttList" Member="Student" ThisKey="StuID" OtherKey="ID" Type="Student" IsForeignKey="true" />
+      <Association Name="Attendance_AttList" Member="Attendance" ThisKey="AttID" OtherKey="AttID" Type="Attendance" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Faculty" Member="Faculties">
+    <Type Name="Faculty">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Faculty_Student" Member="Students" ThisKey="ID" OtherKey="FacultyID" Type="Student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Intake" Member="Intakes">
+    <Type Name="Intake">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Intake_Student" Member="Students" ThisKey="ID" OtherKey="IntakeID" Type="Student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lecturer" Member="Lecturers">
+    <Type Name="Lecturer">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LecturerID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="LecturerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LecturerIC" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LoginID" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Association Name="Lecturer_Attendance" Member="Attendances" ThisKey="ID" OtherKey="LecID" Type="Attendance" />
+      <Association Name="Lecturer_QuestionSet" Member="QuestionSets" ThisKey="ID" OtherKey="LecturerID" Type="QuestionSet" />
+      <Association Name="Login_Lecturer" Member="Login" ThisKey="LoginID" OtherKey="LoginID" Type="Login" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LHistory" Member="LHistories">
+    <Type Name="LHistory">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LastLoginDate" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Browser" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Device" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="IpAddress" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="LoginID" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Association Name="Login_LHistory" Member="Login" ThisKey="LoginID" OtherKey="LoginID" Type="Login" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Login" Member="Logins">
+    <Type Name="Login">
+      <Column Name="LoginID" Type="System.String" DbType="NVarChar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="GCode" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="EmailToken" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Active" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Suspend" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Position" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AccCreatedIP" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="AccCreatedCountry" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Browser" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="Device" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="LastLoginDate" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Association Name="Login_Student" Member="Students" ThisKey="LoginID" OtherKey="LoginID" Type="Student" />
+      <Association Name="Login_Lecturer" Member="Lecturers" ThisKey="LoginID" OtherKey="LoginID" Type="Lecturer" />
+      <Association Name="Login_LHistory" Member="LHistories" ThisKey="LoginID" OtherKey="LoginID" Type="LHistory" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Program" Member="Programs">
+    <Type Name="Program">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="Program_Student" Member="Students" ThisKey="ID" OtherKey="ProgramID" Type="Student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Absent" Member="Absents">
+    <Type Name="Absent">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="EmailSent" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StuID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AttID" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Association Name="Student_Absent" Member="Student" ThisKey="StuID" OtherKey="ID" Type="Student" IsForeignKey="true" />
+      <Association Name="Attendance_Absent" Member="Attendance" ThisKey="AttID" OtherKey="AttID" Type="Attendance" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Attendance" Member="Attendances">
+    <Type Name="Attendance">
+      <Column Name="AttID" Type="System.String" DbType="NVarChar(6) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LecID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sTime" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="eTime" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Association Name="Attendance_AttList" Member="AttLists" ThisKey="AttID" OtherKey="AttID" Type="AttList" />
+      <Association Name="Attendance_Absent" Member="Absents" ThisKey="AttID" OtherKey="AttID" Type="Absent" />
+      <Association Name="Attendance_GamePIN" Member="GamePINs" ThisKey="AttID" OtherKey="AttID" Type="GamePIN" />
+      <Association Name="Lecturer_Attendance" Member="Lecturer" ThisKey="LecID" OtherKey="ID" Type="Lecturer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.QuestionSet" Member="QuestionSets">
+    <Type Name="QuestionSet">
+      <Column Name="QSId" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="VideoUrl" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LecturerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="QuestionSet_GamePIN" Member="GamePINs" ThisKey="QSId" OtherKey="QsID" Type="GamePIN" />
+      <Association Name="Lecturer_QuestionSet" Member="Lecturer" ThisKey="LecturerID" OtherKey="ID" Type="Lecturer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Question" Member="Questions">
+    <Type Name="Question">
+      <Column Name="QID" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="QsID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Question" Member="Question1" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TimeLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Answer" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CorrectAns" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Photo" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="VideoUrl" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Start" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[end]" Member="end" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GamePIN" Member="GamePINs">
+    <Type Name="GamePIN">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PIN" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="Available" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="AttID" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="QsID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Attendance_GamePIN" Member="Attendance" ThisKey="AttID" OtherKey="AttID" Type="Attendance" IsForeignKey="true" />
+      <Association Name="QuestionSet_GamePIN" Member="QuestionSet" ThisKey="QsID" OtherKey="QSId" Type="QuestionSet" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
