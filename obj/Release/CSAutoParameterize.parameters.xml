@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="ilearnConnectionString-Web.config Connection String" description="ilearnConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=ilearn.database.windows.net;Initial Catalog=ilearn;Persist Security Info=True;User ID=ilearn;Password=Admin123" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Dell\\Documents\\Visual\ Studio\ 2015\\Projects\\FinalYearProjectMasterPage\\FinalYearProjectMasterPage\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ilearnConnectionString']/@connectionString" />
-  </parameter>
-</parameters>
