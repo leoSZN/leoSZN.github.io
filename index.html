@@ -1,9 +1,384 @@
 <!DOCTYPE html>
-<html>
+<!-- saved from url=(0044)http://shop.adidas.com.my/originals/nmd.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<body><h1>Anti Raffle Raffle Club</h1></body>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<title>Please wait a moment... | adidas</title>
+<style>
+/* Common */
 
-<a href="home">Home</a><br/><br/>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/aqEheRHNHhg?autoplay=1" frameborder="0" allowfullscreen></iframe>
- 
-</html>
+@font-face {
+font-family:adiHausRegular;
+src:url('http://d38yb3rrelxb9y.cloudfront.net/sg/skin/frontend/enterprise/adidas/fonts/adiHausRegular.eot?#iefix') format('embedded-opentype'),url('http://d38yb3rrelxb9y.cloudfront.net/sg/skin/frontend/enterprise/adidas/fonts/adiHausRegular.woff') format('woff');
+font-style:normal;
+font-weight:normal;
+}
+body {
+color:#212121;
+font:bold 20px adiHausRegular,sans-serif;
+line-height:1.4;
+margin:0;
+text-transform:uppercase;
+}
+h1 {
+font-size:155%;
+margin-top:0;
+}
+img {
+border:0;
+display:block;
+}
+.mobile {
+width:100%;
+display:none;
+}
+.section {
+box-sizing:border-box;
+padding:4% 10%;
+}
+.tile {
+width:25%;
+max-width:296px;
+display:inline-block;
+float:right;
+margin:2% 4% 2% 1%;
+}
+#header {
+background:#000;
+padding-top:15px;
+padding-bottom:15px;
+}
+#intro,#footer { background:#7b8783; }
+#body {
+position:relative;
+background:url('http://d3ag7gmpyt0wvo.cloudfront.net/banners/7aug17_nmd_wlp.jpg') no-repeat;
+background-size:100%;
+overflow:hidden;
+text-align:center;
+}
+#spacer {
+width:40%;
+height:40vw;
+min-height:128px;
+float:left;
+}
+
+/* MOBILE device */
+@media (max-width:479px) {
+body { font-size:16px; }
+#body { background:none; }
+.mobile { display:block; }
+.tile,#spacer { display:none; }
+}
+
+/* Specific */
+
+p:first-child { margin-top:0; }
+p:last-child { margin-bottom:0; }
+small {
+display:inline-block;
+font-weight:normal;
+}
+ul {
+box-sizing:border-box;
+list-style:none;
+}
+#footer {
+background:none;
+text-align:center;
+}
+
+/* Countdown - http://codepen.io/ademilter/pen/czIGo */
+
+#countdown {
+display:none;
+vertical-align:middle;
+}
+#countdown-fallback {
+color:#c00;
+display:none;
+font-size:48px;
+font-weight:900;
+line-height:40px;
+margin:0 0.1em;
+text-shadow:0 1px 2px rgba(0,0,0,0.6);
+vertical-align:bottom;
+}
+
+/* SKELETON */
+
+ul.flip {
+position:relative;
+width:50px;
+height:70px;
+border-radius:6px;
+box-shadow:0 2px 5px rgba(0,0,0,0.7);
+float:left;
+font-size:60px;
+font-weight:bold;
+line-height:82px; /* Adjust depending on font */
+margin:5px;
+}
+ul.flip li {
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:1;
+}
+ul.flip li:first-child { z-index:2; }
+ul.flip li a {
+height:100%;
+display:block;
+perspective:200px;
+}
+ul.flip li a div {
+position:absolute;
+left:0;
+width:100%;
+height:50%;
+overflow:hidden;
+z-index:1;
+}
+ul.flip li a div .shadow {
+position:absolute;
+width:100%;
+height:100%;
+z-index:2;
+}
+ul.flip li a div.up {
+top:0;
+transform-origin:50% 100%;
+}
+ul.flip li a div.up:after {
+position:absolute;
+top:34px; /* ul.flip height/2 - 1 */
+left:0;
+width:100%;
+height:3px;
+content:'';
+background-color:rgba(0,0,0,0.4);
+z-index:5;
+}
+ul.flip li a div.down {
+bottom:0;
+transform-origin:50% 0%;
+}
+ul.flip li a div div.inn {
+position:absolute;
+width:100%;
+height:200%;
+background-color:#333;
+border-radius:6px;
+color:#ccc;
+left:0;
+text-align:center;
+text-shadow:0 1px 2px #000;
+z-index:1;
+}
+ul.flip li a div.up div.inn { top:0; }
+ul.flip li a div.down div.inn { bottom:0; }
+
+/* PLAY */
+
+body.play ul li.before { z-index:3; }
+body.play ul li.active {
+animation:asd 0.5s 0.5s linear both;
+z-index:2;
+}
+@keyframes asd {
+0% { z-index:2; }
+5% { z-index:4; }
+100% { z-index:4; }
+}
+body.play ul li.active .down {
+animation:turn 0.5s 0.5s linear both;
+z-index:2;
+}
+@keyframes turn {
+0% { transform:rotateX(90deg); }
+100% { transform:rotateX(0deg); }
+}
+body.play ul li.before .up {
+animation:turn2 0.5s linear both;
+z-index:2;
+}
+@keyframes turn2 {
+0% { transform:rotateX(0deg); }
+100% { transform:rotateX(-90deg); }
+}
+
+/* SHADOWS */
+
+ul li.before .up .shadow {
+animation:show 0.5s linear both;
+background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,1) 100%);
+}
+ul li.active .up .shadow {
+animation:hide 0.5s 0.3s linear both;
+background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,1) 100%);
+}
+
+/* DOWN */
+
+body.play ul li.before .down .shadow {
+animation:show 0.5s linear both;
+background:linear-gradient(to bottom,rgba(0,0,0,1) 0%,rgba(0,0,0,0.1) 100%);
+}
+body.play ul li.active .down .shadow {
+animation:hide 0.5s 0.3s linear both;
+background:linear-gradient(to bottom,rgba(0,0,0,1) 0%,rgba(0,0,0,0.1) 100%);
+}
+@keyframes show {
+0% { opacity:0; }
+100% { opacity:1; }
+}
+@keyframes hide {
+0% { opacity:1; }
+100% { opacity:0; }
+}
+</style>
+<link rel="icon" href="http://d38yb3rrelxb9y.cloudfront.net/th/skin/frontend/enterprise/adidas/favicon.ico" type="image/x-icon">
+</head>
+<body class="play">
+
+<div id="header" class="section">
+  <a href="http://shop.adidas.com.my/" title="Continue shopping"><img src="./a/logo2.png" alt="adidas logo" width="60" height="41"></a>
+</div>
+<div id="intro" class="section">
+  <h1>
+    This page will reload in
+    <span id="countdown-fallback">60</span>
+    <div id="countdown" style="display: inline-block;">
+      <ul class="flip minute">
+        <li class="before"><a><div class="up"><div class="shadow"></div><div class="inn">6</div></div><div class="down"><div class="shadow"></div><div class="inn">6</div></div></a></li>
+        <li class="active"><a><div class="up"><div class="shadow"></div><div class="inn">5</div></div><div class="down"><div class="shadow"></div><div class="inn">5</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">4</div></div><div class="down"><div class="shadow"></div><div class="inn">4</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">3</div></div><div class="down"><div class="shadow"></div><div class="inn">3</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">2</div></div><div class="down"><div class="shadow"></div><div class="inn">2</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">1</div></div><div class="down"><div class="shadow"></div><div class="inn">1</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">0</div></div><div class="down"><div class="shadow"></div><div class="inn">0</div></div></a></li>
+      </ul>
+      <ul class="flip second">
+        <li class=""><a><div class="up"><div class="shadow"></div><div class="inn">0</div></div><div class="down"><div class="shadow"></div><div class="inn">0</div></div></a></li>
+        <li class="before"><a><div class="up"><div class="shadow"></div><div class="inn">9</div></div><div class="down"><div class="shadow"></div><div class="inn">9</div></div></a></li>
+        <li class="active"><a><div class="up"><div class="shadow"></div><div class="inn">8</div></div><div class="down"><div class="shadow"></div><div class="inn">8</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">7</div></div><div class="down"><div class="shadow"></div><div class="inn">7</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">6</div></div><div class="down"><div class="shadow"></div><div class="inn">6</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">5</div></div><div class="down"><div class="shadow"></div><div class="inn">5</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">4</div></div><div class="down"><div class="shadow"></div><div class="inn">4</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">3</div></div><div class="down"><div class="shadow"></div><div class="inn">3</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">2</div></div><div class="down"><div class="shadow"></div><div class="inn">2</div></div></a></li>
+        <li><a><div class="up"><div class="shadow"></div><div class="inn">1</div></div><div class="down"><div class="shadow"></div><div class="inn">1</div></div></a></li>
+      </ul>
+    </div>
+    seconds
+  </h1>
+  <p>
+    You are now in a waiting room to get a pair of NMD. Please do not refresh or open multiple browsers as this will not assist in you being able to make your purchase.
+  </p>
+  <p>
+    If you are lucky to get through to buy, you will have <u>10 minutes</u> to make your selection and proceed to checkout.
+  </p>
+  <p>
+    It is recommended to choose and purchase your NMD as quickly as possible due to high demand as you may find yourself competing with many consumers for the same item.
+  </p>
+  <p>
+    Progressing past the waiting room will not guarantee you a pair of NMD; if you are able to visit the product page, stocks may already be sold out.
+  </p>
+  
+</div>
+<div id="body">
+  <div id="spacer"></div>
+  <img src="./a/7aug17_nmd_waitrm_wlp_mobile.jpg" alt="Banner" class="mobile">
+</div>
+
+
+<!--[if lt IE 9]>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<![endif]-->
+<!--[if IE 9]><!-->
+<script async="" src="./a/analytics.js.download"></script><script src="./a/jquery.min.js.download"></script>
+<!--<![endif]-->
+<script>
+// Check browser capabilities
+var nSecs = 60,
+  is3dSupported = (function(el) {
+    return (el.style.animationName!==undefined && el.style.perspective!==undefined);
+  })(document.createElement('temp'));
+
+function countDown(sType) {
+  $('body').removeClass('play');
+  var $no = $('ul.' + sType + ' li.active');
+  if (!$no.children().length) {
+    $no = $('ul.' + sType + ' li').eq(0);
+    $no.addClass('before')
+      .removeClass('active')
+      .next('li')
+      .addClass('active')
+      .closest('body')
+      .addClass('play');
+  } else if ($no.is(':last-child')) {
+    $('ul.' + sType + ' li').removeClass('before');
+    $no.addClass('before').removeClass('active');
+    $no = $('ul.' + sType + ' li').eq(0);
+    $no.addClass('active')
+      .closest('body')
+      .addClass('play');
+  } else {
+    $('ul.' + sType + ' li').removeClass('before');
+    $no.addClass('before')
+      .removeClass('active')
+      .next('li')
+      .addClass('active')
+      .closest('body')
+      .addClass('play');
+  }
+  if (sType==='second' && --nSecs===0) {
+    clearInterval(nMinTimer);
+    clearInterval(nSecTimer);
+    setTimeout(function() {
+      console.log('Reloading...');
+      location.reload(true);
+    }, 1000);
+  }
+}
+function countDownFallback() {
+  $countdown.text(--nSecs);
+  if (nSecs===0) {
+    clearInterval(nTimer);
+    console.log('Reloading...');
+    location.reload(true);
+  }
+}
+
+if (is3dSupported) {
+  // CSS3 Countdown - http://codepen.io/ademilter/pen/czIGo
+  // Modified by thdoan
+  $('#countdown').css('display', 'inline-block');
+  var nMinTimer,
+    nSecTimer = setInterval(function(){countDown('second')}, 1000);
+  setTimeout(function() {
+    countDown('minute');
+    nMinTimer = setInterval(function(){countDown('minute')}, 10000);
+  }, 1000);
+} else {
+  // Countdown fallback
+  var $countdown = $('#countdown-fallback'),
+    nTimer = setInterval(countDownFallback, 1000);
+  $countdown.css('display', 'inline-block');
+}
+</script>
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-38702819-1', 'auto');
+ga('set', 'title', 'NMD Wait');
+ga('send', 'pageview');
+</script>
+
+</body></html>
