@@ -237,7 +237,9 @@
 			}
         }else{
             // transaction node
-            document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b><br/><p style='color:grey'>"+id + "</p>";
+            document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b><br/><a id='trx' target='_blank' style='color:aqua'>"+id + "</a>";
+			var b = document.getElementById('trx'); 
+			b.href = 'https://blockchain.info/tx/' + id
         }
     };
 
