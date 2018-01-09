@@ -322,10 +322,10 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
       wsUri = "wss://ws.blockchain.info/inv"; 
     }
     var output;  
-     
+     testWebSocket();
      function init() { 
      	output = document.getElementById("output"); 
-		testWebSocket();
+		
 		$(".connect").click(function(){
 			testWebSocket();
 		});
