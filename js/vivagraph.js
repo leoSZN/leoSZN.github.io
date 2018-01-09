@@ -165,7 +165,7 @@ Viva.random = function () {
 
 /**
  * Iterates over array in arbitrary order. The iterator modifies actual array content.
- * It's based on modern version of Fisher–Yates shuffle algorithm.
+ * It's based on modern version of Fisherâ€“Yates shuffle algorithm.
  *
  * @see http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
  *
