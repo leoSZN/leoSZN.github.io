@@ -5,8 +5,8 @@
     <title>Blockchain Visualisation</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="/js/vivigraph.js"></script>  
-    <script type="text/javascript" src="/js/webgl-programs.js"></script>  
+    <script type="text/javascript" src="js/vivagraph.js"></script>  
+    <script type="text/javascript" src="js/webgl-programs.js"></script>  
     <style>
     @import url(//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css);
 	body { margin: 30px; } 
@@ -90,13 +90,13 @@
 	
 	<a class="clear btn btn btn-warning"><i class="glyphicon glyphicon-erase"></i> Clear Chart</a>
 	</div>
-	
 	</br>
-	
+	<div>
+	<b>Status</b>
+	<p id= "status"></p>
+	</div>
 
- 
     <div>
-
     <b>Node size scale</b>
 	<div class=".container">
 	<div>
@@ -209,7 +209,6 @@
                 label = "Mix";
             }
             
-            // for addresses infor cors not enabled :-( 
             // enabled for blocks
             
             var balance = 0;
@@ -226,11 +225,19 @@
                 }
             });
             
-            document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b></br><a style='color:grey'>"+id+"</a><br/><b style='color:white'>Balance</b></br><a style='color:grey'>"+balance + " BTC</a>";
-
+            document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b></br><a id='address' target='_blank'>"+id+"</a><br/><b style='color:white'>Balance</b></br><p style='color:grey'>"+balance + " BTC</p>";
+			var a = document.getElementById('address'); 
+			a.href = 'https://blockchain.info/address/' + id
+			if (label == "Input"){
+			    a.style = "color:green"
+			}else if(label == "Output") {
+			    a.style = "color:red"
+			}else if(label == "Mix") {
+			    a.style = "color:yellow"
+			}
         }else{
             // transaction node
-            document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b><br/><a style='color:grey'>"+id + "</a>";
+            document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b><br/><p style='color:grey'>"+id + "</p>";
         }
     };
 
@@ -322,14 +329,15 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
       wsUri = "wss://ws.blockchain.info/inv"; 
     }
     var output;  
-     testWebSocket();
+     
      function init() { 
      	output = document.getElementById("output"); 
-		
+		testWebSocket();
 		$(".connect").click(function(){
 			testWebSocket();
 		});
 		$(".dc").click(function(){
+		    writeToScreen("DISCONNECTED");
 		    graphics.release();
             graph.clear();
 			websocket.close(); 
@@ -466,10 +474,17 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
      	}
      	
      	function writeToScreen(message) { 
-     		var pre = document.createElement("p"); 
+     		/*var pre = document.createElement("p"); 
      		pre.style.wordWrap = "break-word"; 
      		pre.innerHTML = message; 
-     		output.appendChild(pre); 
+     		output.appendChild(pre);*/
+			if (message == ("CONNECTED")){
+			    document.getElementById("status").style.color = "green";
+			}else if (message == ("DISCONNECTED")){
+			    document.getElementById("status").style.color = "red";
+			}
+			document.getElementById("status").innerHTML = message;
+			
      	}  
 
      	window.addEventListener("load", init, false);  
