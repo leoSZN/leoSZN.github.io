@@ -9,10 +9,10 @@
     <script type="text/javascript" src="js/webgl-programs.js"></script>  
     <style>
     @import url(//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css);
-	body { margin: 30px; } 
+	body {background-color:black;} 
 	/*** basic styles ***/
-	h1 { font-size: 1.5em; }
-	label,div,p,span { font-size: 12px; }
+	h1 { font-size: 1.5em; color:white;}
+	label,div,p,span { font-size: 12px; color:white;}
 	container { 
 	width: 175px; 
 	margin-left: 20px;
@@ -36,7 +36,7 @@
 		content: "\f1db";
 		letter-spacing: 10px;
 		font-size: 1.2em;
-		color: #535353;
+		color: lightgreen;
 		width: 1.4em;
 	}
 
@@ -44,7 +44,7 @@
 	input[type=checkbox].with-font:checked ~ label:before  {
 		content: "\f00c";
 		font-size: 1.2em;
-		color: darkgreen;
+		color: lightgreen;
 		letter-spacing: 5px;
 	}
 	input[type=checkbox].with-font ~ label:before {        
@@ -52,14 +52,14 @@
 	}
 	input[type=checkbox].with-font:checked ~ label:before {
 		content: "\f046";        
-		color: darkgreen;
+		color: lightgreen;
 	}
 	input[type=radio].with-font:focus ~ label:before,
 	input[type=checkbox].with-font:focus ~ label:before,
 	input[type=radio].with-font:focus ~ label,
 	input[type=checkbox].with-font:focus ~ label
 	{                
-    color: green;
+    color: lightgreen;
 	}
     .input-node{color:green;}
     .output-node{color:red;}
@@ -71,60 +71,53 @@
     #info{
         position: absolute;
         right:50px;
-        top:30px;
-        width:500px;
-        background-color: #000000;
-        padding:4px;
+        top:200px;
+        width:450px;
+        background-color: rgb(36,36,57);
+        padding:10px;
+        border:1px solid #aaa;
+    }
+    #nodeSize{
+        position: absolute;
+        left:20px;
+        top:200px;
+        width:165px;
+        background-color: rgb(36,36,57);
+        padding:10px;
+        border:1px solid #aaa;
     }
     </style>
 </head>
 <body>
-	<div id="g" style="background-color:black; width:100%; height:600px;"></div> 
-    <div id="info" style="color:white" class="with-font">Transaction details (Hover over nodes)</div>
-	
-	<h1>Visualization of bitcoin transactions (Unconfirmed and block)</h1>
-	<div>
-    <a class="connect btn btn-success"><i class="glyphicon glyphicon-play"></i> Connect</a>
-	
-	<a class="dc btn btn-danger"><i class="glyphicon glyphicon-stop"></i> Disconnect</a>
-	
-	<a class="clear btn btn btn-warning"><i class="glyphicon glyphicon-erase"></i> Clear Chart</a>
-	</div>
-	</br>
-	<div>
-	<b>Status</b>
-	<p id= "status"></p>
-	</div>
-
+    <div align="center">
+    <h1><b>Bitcoin Transaction Visualization</b> : <p id= "status" style="display:inline"></p></h1>
     <div>
+    <a class="connect btn btn-success"><i class="glyphicon glyphicon-play"></i> Connect</a>
+    
+    <a class="dc btn btn-danger"><i class="glyphicon glyphicon-stop"></i> Disconnect</a>
+    
+    <a class="clear btn btn btn-warning"><i class="glyphicon glyphicon-erase"></i> Clear Chart</a>
+    </div>
+    </div>
+    <hr/>
+    <div id="g" style="width:100%; height:820px; "></div>
+    <div id="info" style="color:white;" class="with-font">Transaction details (Hover over nodes)</div>
+    
+    <div id="nodeSize" style="color:white;" class="with-font">
     <b>Node size scale</b>
-	<div class=".container">
-	<div>
+    
+    <div class=".container">
+    <div>
     <input id="question1"  type="radio" name="question" value="LINEAR" class="with-font"  value="sel" />
     <label for="question1">LINEAR</label>
     </div>
-	<div>
-	<input id="question2" type="radio" name="question" value="LOG" class="with-font" value="sel" checked/>
+    <div>
+    <input id="question2" type="radio" name="question" value="LOG" class="with-font" value="sel" checked/>
     <label for="question2">LOG</label>
     </div>
-	</div>
-	</br>
-    <b>Legend</b></br>
-    <span class="input-node">Green = Input</span></br> <span class="output-node">Red = Output</span></br>
-    <span class="input-output-node">Yellow = Mix</span></br><span class="transaction-node">Blue = Transaction</span>
-    <br />
-	<br />
-    <b>Hotkey</b></br> Mouse + Scroll = Pan/Zoom</br>Space = Run/Pause
-    <br />
-	<br />
-	
-    TODO: 
-    <pre>
-    - auto remove transactions older then x min or verified 
-    - listen for a specific address and color it and display alert when present
-    - render graph for specific address/transaction
-    - categorise transactions (simple, payments, mixing etc )
-    </pre>
+    </div>
+    <br/><b>Hotkey</b><br/>Mouse/Scroll = Pan/Zoom<br/>Space = Run/Pause
+    </div>
     <div id="output" ></div> 
     
 </body>
@@ -321,7 +314,7 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
         height= $("#g").height();
 
     renderer.run();
-    graphics.scale(0.15, {x : width/2, y : height/2});
+    graphics.scale(0.20, {x : width/2, y : height/2});
 
     // websockets part
 
@@ -340,7 +333,7 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
 		});
 		$(".dc").click(function(){
 		    writeToScreen("DISCONNECTED");
-	            websocket.close(); 
+			websocket.close(); 
 		});
 		$(".clear").click(function(){
 		    graphics.release();
@@ -437,30 +430,36 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
 
             // flush the buffer if not empty
             if (! paused && linksBuffer.length > 0) {
-                for(var i=0;i<linksBuffer.length;i++){
+               
+                    for(var i=0;i<linksBuffer.length;i++){
                     var link = linksBuffer[i];
                     
                     addNodes(link)
                     graph.addLink(link.from,link.to);
-                }
-                linksBuffer = [];
+                    linksBuffer = [];
+                   }
+
+               
             }
-            
-            for(var i=0;i<links.length;i++){
-     			var link = links[i];
-     			if(link.value > maxNodeSize){
-                        maxNodeSize = link.value;
-                }
+            try{
+                for(var i=0;i<links.length;i++){
+     			    var link = links[i];
+     			    if(link.value > maxNodeSize){
+                            maxNodeSize = link.value;
+                    }
                     
-                if (! paused) {
-                    addNodes(link);
-                    graph.addLink(link.from,link.to);
-     			} else{
-                    // add links to a buffer
-                    linksBuffer.push(link);
+                    if (! paused) {
+                        addNodes(link);
+                        graph.addLink(link.from,link.to);
+     			    } else{
+                        // add links to a buffer
+                        linksBuffer.push(link);
+                    }
+                    //writeToScreen('<span style="color: blue;">from: ' + link.from+' to ' +link.to+' value: '+ (link.value/100000000)+'</span>'); 
                 }
-                //writeToScreen('<span style="color: blue;">from: ' + link.from+' to ' +link.to+' value: '+ (link.value/100000000)+'</span>'); 
-     		}
+            }catch (e){
+                console.log(e.name + ': ' + e.message);
+            }
      		//websocket.close(); 
      	}
 
@@ -479,7 +478,7 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
      		pre.innerHTML = message; 
      		output.appendChild(pre);*/
 			if (message == ("CONNECTED")){
-			    document.getElementById("status").style.color = "green";
+			    document.getElementById("status").style.color = "lightgreen";
 			}else if (message == ("DISCONNECTED")){
 			    document.getElementById("status").style.color = "red";
 			}
