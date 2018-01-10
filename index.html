@@ -340,9 +340,7 @@ var events = Viva.Graph.webglInputEvents(graphics, graph),
 		});
 		$(".dc").click(function(){
 		    writeToScreen("DISCONNECTED");
-		    graphics.release();
-            graph.clear();
-			websocket.close(); 
+	            websocket.close(); 
 		});
 		$(".clear").click(function(){
 		    graphics.release();
