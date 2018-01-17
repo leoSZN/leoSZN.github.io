@@ -1,1 +1,514 @@
-{"product":{"id":10463398479,"title":"TaskBot For macOS","body_html":"TaskBot: A Simple AIO Bot for macOS","vendor":"AIOMacBot","product_type":"software","created_at":"2017-03-06T22:21:53-05:00","handle":"taskbot-for-macos","updated_at":"2018-01-17T09:20:41-05:00","published_at":"2017-03-06T22:21:53-05:00","template_suffix":null,"published_scope":"web","tags":"","variants":[{"id":38188288335,"product_id":10463398479,"title":"Default Title","price":"249.99","sku":"001","position":1,"compare_at_price":null,"fulfillment_service":"manual","inventory_management":"shopify","option1":"Default Title","option2":null,"option3":null,"created_at":"2017-03-06T22:21:53-05:00","updated_at":"2018-01-16T09:02:30-05:00","taxable":true,"barcode":"","grams":0,"image_id":null,"weight":0.0,"weight_unit":"lb","inventory_item_id":26225778767,"requires_shipping":false}],"options":[{"id":12528402703,"product_id":10463398479,"name":"Title","position":1,"values":["Default Title"]}],"images":[{"id":25077086159,"product_id":10463398479,"position":1,"created_at":"2017-03-06T22:27:09-05:00","updated_at":"2017-03-06T22:27:09-05:00","width":1024,"height":1024,"src":"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/1727\\/9043\\/products\\/icon.png?v=1488857229","variant_ids":[]}],"image":{"id":25077086159,"product_id":10463398479,"position":1,"created_at":"2017-03-06T22:27:09-05:00","updated_at":"2017-03-06T22:27:09-05:00","width":1024,"height":1024,"src":"https:\\/\\/cdn.shopify.com\\/s\\/files\\/1\\/1727\\/9043\\/products\\/icon.png?v=1488857229","variant_ids":[]}}}
+ <html>		
+ <head>		
+     <meta charset="utf-8" />		
+     <title>Blockchain Visualisation</title>		
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">		
+     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>		
+     <script type="text/javascript" src="js/vivagraph.js"></script>  		
+     <script type="text/javascript" src="js/webgl-programs.js"></script>  		
+     <style>		
+     @import url(//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css);		
+ 	body {background-color:black;} 		
+ 	/*** basic styles ***/		
+ 	h1 { font-size: 1.5em; color:white;}		
+ 	label,div,p,span { font-size: 12px; color:white;}		
+ 	container { 		
+ 	width: 175px; 		
+ 	margin-left: 20px;		
+ 	}		
+ 	input[type=radio].with-font,		
+ 	input[type=checkbox].with-font {		
+ 		border: 0;		
+ 		clip: rect(0 0 0 0);		
+ 		height: 1px;		
+ 		margin: -1px;		
+ 		overflow: hidden;		
+ 		padding: 0;		
+ 		position: absolute;		
+ 		width: 1px;		
+ 	}		
+     		
+ 	input[type=radio].with-font ~ label:before,		
+ 	input[type=checkbox].with-font ~ label:before {		
+ 		font-family: FontAwesome;		
+ 		display: inline-block;		
+ 		content: "\f1db";		
+ 		letter-spacing: 10px;		
+ 		font-size: 1.2em;		
+ 		color: lightgreen;		
+ 		width: 1.4em;		
+ 	}		
+ 		
+ 	input[type=radio].with-font:checked ~ label:before,		
+ 	input[type=checkbox].with-font:checked ~ label:before  {		
+ 		content: "\f00c";		
+ 		font-size: 1.2em;		
+ 		color: lightgreen;		
+ 		letter-spacing: 5px;		
+ 	}		
+ 	input[type=checkbox].with-font ~ label:before {        		
+ 		content: "\f096";		
+ 	}		
+ 	input[type=checkbox].with-font:checked ~ label:before {		
+ 		content: "\f046";        		
+ 		color: lightgreen;		
+ 	}		
+ 	input[type=radio].with-font:focus ~ label:before,		
+ 	input[type=checkbox].with-font:focus ~ label:before,		
+ 	input[type=radio].with-font:focus ~ label,		
+ 	input[type=checkbox].with-font:focus ~ label		
+ 	{                		
+     color: lightgreen;		
+ 	}		
+     .input-node{color:green;}		
+     .output-node{color:red;}		
+     .input-output-node{color:orange;}		
+     .transaction-node{color:blue;}		
+ 		
+     #output{display:none;}		
+ 		
+     #info{		
+         position: absolute;		
+         right:10px;		
+         top:10px;		
+         width:450px;		
+         background-color: rgb(36,36,57);		
+         padding:10px;		
+         border:1px solid #aaa;		
+         opacity: 0.5;		
+     }		
+     #nodeSize{		
+         position: absolute;		
+         left:10px;		
+         top:10px;		
+         width:165px;		
+         background-color: rgb(36,36,57);		
+         padding:10px;		
+         border:1px solid #aaa;		
+         opacity: 0.5;		
+     }		
+     </style>		
+ </head>		
+ <body>		
+     <div id="g" style="width:100%; height:610px; "></div>		
+     <div id="info" style="color:white;" class="with-font">Transaction details (Hover over nodes)</div>		
+     		
+     <div id="nodeSize" style="color:white;" class="with-font">		
+     <b>Node size scale</b>		
+     		
+     <div class=".container">		
+     <div>		
+     <input id="question1"  type="radio" name="question" value="LINEAR" class="with-font"  value="sel" />		
+     <label for="question1">LINEAR</label>		
+     </div>		
+     <div>		
+     <input id="question2" type="radio" name="question" value="LOG" class="with-font" value="sel" checked/>		
+     <label for="question2">LOG</label>		
+     </div>		
+     </div>		
+     <br/><b>Hotkey</b><br/>Mouse/Scroll = Pan/Zoom<br/>Space = Run/Pause		
+     </div>		
+     <div id="output" ></div>		
+      <hr/>		
+     <div align="center">		
+     <h1><b>Bitcoin Transaction Visualization</b> : <p id= "status" style="display:inline"></p></h1>		
+     <a class="connect btn btn-success"><i class="glyphicon glyphicon-play"></i> Connect</a>		
+     		
+     <a class="dc btn btn-danger"><i class="glyphicon glyphicon-stop"></i> Disconnect</a>		
+     		
+     <a class="clear btn btn btn-warning"><i class="glyphicon glyphicon-erase"></i> Clear Chart</a>		
+     <br/><br/>		
+     <p  style="display:inline">Donate to <b style="color:lightgreen">1BY4VtrcJS7yTW3MTWvoXbvRhtsqsVkKjw</b> if you found this interesting.</p>		
+    		
+     </div>		
+ 		
+     		
+ </body>		
+     <script language="javascript" type="text/javascript">  		
+     // viva graph part 		
+     var graphics = Viva.Graph.View.webglGraphics();		
+     		
+     var isWebgl = graphics.isSupported();		
+     if (!isWebgl) {		
+         alert("Turn on webgl or use modern browser");		
+     }		
+     		
+     var graph = Viva.Graph.graph(),		
+     layout = Viva.Graph.Layout.forceDirected(graph, {		
+        springLength : 80,		
+        springCoeff : 0.0002,		
+        dragCoeff : 0.009,		
+        gravity : -30,		
+        theta : 0.7		
+     }), 		
+ 		
+ 	minNodeSize = 1,		
+     maxNodeSize = 100000000;		
+ 		
+     function log10(val) {		
+         return Math.log(val) / Math.LN10;		
+     }		
+ 		
+     function log2(val) {		
+         return Math.log(val) / Math.LN2;		
+     }		
+ 		
+     var question = "LOG"; // LINEAR		
+ 		
+     var getNodeColor = function(node) {		
+         // here different colors for tx, input, output, mixed and txconfirmed		
+         if(node.data && node.data.t && node.data.t == "i"){ 		
+             return 0x00FF00;		
+         }else if(node.data && node.data.t && node.data.t == "o"){		
+             return 0xFF0000;		
+         }else if(node.data && node.data.t && node.data.t == "m"){		
+             return 0xFFA500;		
+         }		
+         return 0x008ED2;		
+     },		
+     		
+     getNodeSize = function(node){		
+         if(! node.data || !node.data.s){		
+             return 50;		
+         }		
+         var rmin = 32;		
+         var rmax = 96;		
+         		
+ 		
+         // linear normalization to a range rmin,rmax		
+         if(question == "LINEAR"){		
+             return rmin + (rmax - rmin) * ( (node.data.s - minNodeSize)/(maxNodeSize - minNodeSize) ) ;		
+         }else{    		
+             // log normalization to a range rmin,rmax		
+             var min = log2(minNodeSize);		
+             var max = log2(maxNodeSize);		
+             var val = log2( node.data.s );		
+ 		
+             // linear scaling from min.max -> rmin rmax		
+             return rmin + (rmax - rmin) * ( (val - min)/(max - min) ) ;		
+         }		
+     },		
+     getNodeDetails = function(node){		
+         // 		
+         // http://blockchain.info/rawtx/$tx_index?format=json		
+         var label = "Transaction";		
+         var id = node.id;		
+         if(node.data && node.data.t){		
+             if(node.data.t == "i"){		
+                 // input node		
+                 label = "Input";		
+             }else if(node.data.t == "o"){		
+                 // output node		
+                 label = "Output";		
+             }else if(node.data.t == "mix"){		
+                 // node which is both input and output		
+                 label = "Mix";		
+             }		
+             		
+             // enabled for blocks		
+             		
+             var balance = 0;		
+             //lets get balance		
+             $.ajax({		
+                 //url:"http://blockchain.info/address/"+id+"?format=json&limit=1&cors=true",		
+                 //url:"http://blockchain.info/rawblock/123?cors=true&format=json",		
+                 url:"https://blockchain.info/q/addressbalance/"+id+"?cors=true",		
+                 async:false,		
+                 crossDomain:true,		
+                 dataType:"text",		
+                 success:function(text){		
+                     balance = text/100000000;		
+                 }		
+             });		
+             		
+             document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b></br><a id='address' target='_blank'>"+id+"</a><br/><b style='color:white'>Balance</b></br><p style='color:grey'>"+balance + " BTC</p>";		
+ 			var a = document.getElementById('address'); 		
+ 			a.href = 'https://blockchain.info/address/' + id		
+ 			if (label == "Input"){		
+ 			    a.style = "color:green"		
+ 			}else if(label == "Output") {		
+ 			    a.style = "color:red"		
+ 			}else if(label == "Mix") {		
+ 			    a.style = "color:yellow"		
+ 			}		
+         }else{		
+             // transaction node		
+             document.getElementById("info").innerHTML = "<b stlye='color:white'>" + label+"</b><br/><a id='trx' target='_blank' style='color:aqua'>"+id + "</a>";		
+ 			var b = document.getElementById('trx'); 		
+ 			b.href = 'https://blockchain.info/tx/' + id		
+         }		
+     };		
+ 		
+     // need to get these 2 from yavis.reddit.min.js		
+     graphics.setLinkProgram(Viva.Graph.View.webglDualColorLinkProgram());		
+     graphics.setNodeProgram(Viva.Graph.View.webglCustomNodeProgram());		
+ 		
+     graphics		
+     .node(function(node){		
+         var img = Viva.Graph.View.webglSquare(getNodeSize(node), getNodeColor(node));		
+         return img;		
+      })		
+     .link(function(link){		
+          var fromColor, toColor;		
+          fromColor = toColor = 0x808080;		
+          var line = Viva.Graph.View.webglDualColorLine(fromColor, toColor);		
+          line.oldStart = fromColor;		
+          line.oldEnd = toColor;		
+          return line;		
+     });		
+ 		
+     var renderer = Viva.Graph.View.renderer(graph,{		
+        layout     : layout,		
+        graphics   : graphics,		
+        container  : document.getElementById('g')		
+     });		
+ 		
+ 		
+ 		
+ var events = Viva.Graph.webglInputEvents(graphics, graph),		
+     lastHovered = null,		
+ 		
+     colorLinks = function(node, color) {		
+      if (node && node.id) {		
+         graph.forEachLinkedNode(node.id, function(node, link){		
+             if (color) { 		
+                 link.ui.start = link.ui.end = color;		
+             } else {		
+                 link.ui.start = link.ui.end = 0x80808040;		
+             } 		
+         });		
+      }		
+     };		
+                  		
+     events.mouseEnter(function(node){		
+         		
+ 	    getNodeDetails(node);		
+ 		
+         colorLinks(lastHovered);		
+         lastHovered = node;		
+      		
+         graph.forEachLinkedNode(node.id, function(node, link){		
+             link.ui.start = link.ui.end = 0xffffffff;		
+             graphics.bringLinkToFront(link.ui);		
+         });		
+      		
+      renderer.rerender();		
+     }).mouseLeave(function(node) {		
+      		
+      colorLinks(lastHovered);		
+      lastHovered = null;		
+      		
+      colorLinks(node);		
+      renderer.rerender();		
+     });		
+ 		
+     var paused = false;		
+     $(window).keydown(function(e) {		
+         if (e.keyCode === 32) {		
+             e.preventDefault();		
+             paused = !paused;		
+             if (paused) { renderer.pause(); } 		
+             else { renderer.resume(); } 		
+ 		
+         }		
+     });		
+ 		
+     var width = $("#g").width(),		
+         height= $("#g").height();		
+ 		
+     renderer.run();		
+     graphics.scale(0.20, {x : width/2, y : height/2});		
+ 		
+     // websockets part		
+ 		
+     var linksBuffer = [];		
+     var wsUri = "ws://ws.blockchain.info/inv"; 		
+     if (document.location.protocol.indexOf("https") === 0) {		
+       wsUri = "wss://ws.blockchain.info/inv"; 		
+     }		
+     var output;  		
+      		
+      function init() { 		
+      	output = document.getElementById("output"); 		
+ 		testWebSocket();		
+ 		$(".connect").click(function(){		
+ 			testWebSocket();		
+ 		});		
+ 		$(".dc").click(function(){		
+ 		    writeToScreen("DISCONNECTED");		
+ 			websocket.close(); 		
+ 		});		
+ 		$(".clear").click(function(){		
+ 		    graphics.release();		
+             graph.clear(); 		
+ 		});		
+      }  		
+      		
+ 		
+      var colorNodes = function(node, color) {		
+          if (node && node.id) {		
+              graph.forEachNode(function(node){		
+                 if (color) { 		
+                     node.ui.color = color;		
+                 }		
+             });		
+          }		
+      };		
+ 		
+      function addNodes(link){		
+         		
+         if(link.t == "i"){		
+             var node = graph.getNode(link.from); 		
+             if( !node ){		
+                 graph.addNode(link.from,{s:link.value,t:link.t});		
+             } else {		
+                 // such a node already exists		
+                 if(node.data && node.data.t && node.data.t == "o" ){		
+                     node.data.t = "mix";		
+                     node.ui.color = 16776960;		
+                     renderer.rerender();		
+                 }		
+             }		
+         } else if(link.t == "o"){		
+             var node = graph.getNode(link.to); 		
+             if( ! node){		
+                 graph.addNode(link.to,{s:link.value,t:link.t});		
+             } else {		
+                 // such a node alredy exists.  		
+                 if(node.data && node.data.t && node.data.t == "i"){		
+                     node.data.t = "mix";		
+                     node.ui.color = 16776960;		
+                     renderer.rerender();		
+                 }		
+             }		
+         } 		
+      }		
+ 		
+      function testWebSocket() { 		
+      	websocket = new WebSocket(wsUri); 		
+      	websocket.onopen = function(evt) { onOpen(evt) };		
+      	websocket.onclose = function(evt) { onClose(evt) }; 		
+      	websocket.onmessage = function(evt) { onMessage(evt) };		
+      	websocket.onerror = function(evt) { onError(evt) }; }  		
+ 		
+      	function onOpen(evt) { 		
+      		writeToScreen("CONNECTED"); 		
+      		doSend({"op":"unconfirmed_sub"}); 		
+ 			doSend({"op": "blocks_sub" });		
+             doSend({"op": "ping_trx" });		
+      	}		
+      			
+      	function onClose(evt) { writeToScreen("DISCONNECTED"); }  		
+      			
+      	function onMessage(evt) { 		
+      		// parse message		
+      		var msg = JSON.parse(evt.data);		
+      		var txHash = msg.x.hash;		
+             if(msg.op == "utx"){		
+      			// uncorfimed transactions		
+      			var inputs = msg.x.inputs;		
+      			var outputs = msg.x.out;		
+      			// generate from to 		
+      			var links = [];		
+      			for(var i=0;i<inputs.length;i++){		
+      				var input = inputs[i];		
+      				links.push({		
+                         from: input.prev_out.addr,		
+                         to: txHash,		
+                         value: input.prev_out.value,		
+                         t:"i"		
+                     });		
+                 }		
+                 for(var j=0;j<outputs.length;j++){		
+      				var output = outputs[j];		
+      				links.push({		
+      					from: txHash,		
+      					to: output.addr,		
+      					value: output.value,		
+                         t:"o"		
+      				});		
+      			}		
+      		}		
+ 		
+ 		
+             // flush the buffer if not empty		
+             if (! paused && linksBuffer.length > 0) {		
+                		
+                     for(var i=0;i<linksBuffer.length;i++){		
+                     var link = linksBuffer[i];		
+                     		
+                     addNodes(link)		
+                     graph.addLink(link.from,link.to);		
+                     linksBuffer = [];		
+                    }		
+ 		
+                		
+             }		
+             try{		
+                 for(var i=0;i<links.length;i++){		
+      			    var link = links[i];		
+      			    if(link.value > maxNodeSize){		
+                             maxNodeSize = link.value;		
+                     }		
+                     		
+                     if (! paused) {		
+                         addNodes(link);		
+                         graph.addLink(link.from,link.to);		
+      			    } else{		
+                         // add links to a buffer		
+                         linksBuffer.push(link);		
+                     }		
+                     //writeToScreen('<span style="color: blue;">from: ' + link.from+' to ' +link.to+' value: '+ (link.value/100000000)+'</span>'); 		
+                 }		
+             }catch (e){		
+                 console.log(e.name + ': ' + e.message);		
+             }		
+      		//websocket.close(); 		
+      	}		
+ 		
+      	function onError(evt) { 		
+      		writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);		
+      	}		
+ 		
+      	function doSend(message) { 		
+      		//writeToScreen("SENT: " + JSON.stringify(message));		
+      		websocket.send(JSON.stringify(message));		
+      	}		
+      			
+      	function writeToScreen(message) { 		
+      		/*var pre = document.createElement("p"); 		
+      		pre.style.wordWrap = "break-word"; 		
+      		pre.innerHTML = message; 		
+      		output.appendChild(pre);*/		
+ 			if (message == ("CONNECTED")){		
+ 			    document.getElementById("status").style.color = "lightgreen";		
+ 			}else if (message == ("DISCONNECTED")){		
+ 			    document.getElementById("status").style.color = "red";		
+ 			}		
+ 			document.getElementById("status").innerHTML = message;		
+ 					
+      	}  		
+ 		
+      	window.addEventListener("load", init, false);  		
+         window.l = layout;		
+         window.g = graph;		
+         window.r = renderer;		
+      			
+         $("input[name='question']").change(function(){		
+             question = this.value;		
+             graph.forEachNode(function(node){		
+                 node.ui.size =  getNodeSize(node);		
+             })		
+         });		
+         </script> 		
+ 		
+ <script>		
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){		
+   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),		
+   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)		
+   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');		
+ 		
+   ga('create', 'UA-46634113-1', 'dailyblockchain.github.io');		
+   ga('send', 'pageview');		
+ </script>		
+ </html>
